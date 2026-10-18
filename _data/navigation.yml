@@ -1,0 +1,9 @@
+main:
+  - title: "Experience"
+    url: /experience/
+  - title: "Projects"
+    url: /projects/
+  - title: "Resume"
+    url: /resume/
+  - title: "Passions"
+    url: /passions/
