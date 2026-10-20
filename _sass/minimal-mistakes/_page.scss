@@ -193,6 +193,12 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
+    // A hero with overlay_color and no overlay_image is see-through, so the
+    // Cornell box backdrop shows behind the title. The theme writes an inline
+    // background (color + `url('')`), so only !important can override it.
+    &[style*="url('')"] {
+      background: transparent !important;
+    }
     -webkit-animation: $intro-transition;
     animation: $intro-transition;
     -webkit-animation-delay: 0.25s;

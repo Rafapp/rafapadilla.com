@@ -1,0 +1,190 @@
+# Experience entries, newest first. Rendered by _includes/experience.html.
+#
+# id        anchor for the entry (/experience/#id)
+# image     card image; .mp4/.webm render as a muted looping video. Optional.
+# excerpt   one or two sentences shown on the closed card (HTML allowed)
+# details   Markdown shown when the card is expanded
+# links     buttons on the card: {label, url}
+# projects  highlighted projects inside the expanded section:
+#           {title, image, text (HTML allowed), links: [{label, url}]}
+#           or, for a demo with playback controls: video + poster instead of image
+#           (self-hosted MP4s in assets/videos/)
+
+- id: dreamworks
+  org: DreamWorks Animation
+  role: Production Software Intern, Frontend Tools
+  dates: Jun. 2026 – Aug. 2026
+  location: Glendale, CA
+  excerpt: >-
+    Rendering R&amp;D for MoonRay and real-time graphics tools for layout artists, including
+    tools released for <i>Shrek 5</i>.
+  details: |
+    - **Rendering R&D:** prototyped a lens-sampled auxiliary-ray depth of field (DoF) integrator
+      in C++ for MoonRay, and built a dependency-free DoF test scene the team now uses. Presented
+      an energy-loss and correlation analysis to the MoonRay team.
+    - **Graphics tools:** built real-time OpenGL/Maya DoF previews with the Layout leads,
+      replacing overnight render checks with live, Nuke-matched focus, f-stop, and frustum
+      controls. Shipped to **20+ artists** on **2 shows**.
+    - **Production pipeline:** updated Rez and SCons dependencies for 2027 DCC versions and VFX
+      Reference Platform parity, releasing layout tools for *Shrek 5* and future shows. Built a
+      standardized camera rotation-order system for downstream consistency, and a zsh
+      compatibility layer over the studio's tcsh environment, now documented in the knowledge
+      base and shared with studio tech leads.
+  projects:
+    - title: Auxiliary-ray DoF integrator
+      text: Lens-sampled depth of field prototype for MoonRay, in C++.
+    - title: Live DoF previews
+      text: Real-time OpenGL/Maya depth of field matched to Nuke, used by 20+ layout artists.
+
+- id: utah
+  org: University of Utah
+  role: M.S. Computing, Graphics &amp; Visualization
+  dates: Aug. 2025 – Present
+  location: Salt Lake City, UT
+  image: /assets/images/Uni.jpg
+  excerpt: >-
+    Graduate research in physically based rendering and GPU path tracing. Founder and President
+    of the ACM SIGGRAPH Student Chapter.
+  details: |
+    #### Degree
+    M.S. in Computing with a Graphics & Visualization track, expected Jul. 2027.
+
+    #### Research
+    Progressive and GPU path tracing: first author of *HiPR: Hierarchical Progressive Rendering
+    for Immediate Feedback* (SIGGRAPH Real-Time Live! '26) and *Megakernel vs. Wavefront GPU
+    Path Tracing* (arXiv, 2026). See [Research](/research/) for papers and ongoing work.
+
+    #### Graphics club
+    Founded and lead the university's ACM SIGGRAPH Student Chapter.
+  links:
+    - label: Research
+      url: /research/
+    - label: Utah Graphics
+      url: https://graphics.cs.utah.edu/
+  projects:
+    - title: Alebrije
+      text: Cross-vendor Vulkan/Slang GPU path tracer, and the demo renderer for HiPR.
+      links:
+        - label: Research
+          url: /research/#alebrije
+
+- id: wdas-atd
+  org: Walt Disney Animation Studios
+  role: Assistant Technical Director, <i>Hexed</i>
+  dates: Apr. 2025 – Jul. 2025
+  location: Burbank, CA
+  image: /assets/images/hexed.webp
+  excerpt: >-
+    Shipped Python and C++ pipeline tools for <i>Hexed</i> and <i>Zootopia 2</i> across lighting,
+    visdev, grooming, and modeling.
+  details: |
+    - **Production pipeline:** built version and dependency tracking for the Lighting-in-Assets
+      (LIA) system in Houdini Solaris, managing releases for **30+ lighting artists**. Developed
+      XGen multi-edit workflows for hair, fur, and foliage.
+    - **Procedural / USD tools:** replaced per-shingle USD file export in the proprietary tool
+      Aurora with a composed-stage batch export scheduled on the render farm, cutting *Hexed*
+      building exports from 1–2 days to minutes (**250x**).
+    - Provided daily hands-on support to unblock artists, and artistic production support for
+      *Zootopia 2* during crunch periods.
+  links:
+    - label: WDAS
+      url: https://disneyanimation.com/
+  projects:
+    - title: Aurora batch USD export
+      text: Composed-stage export on the render farm; building exports went from days to minutes (250x).
+    - title: LIA release tracking
+      text: Version and dependency tracking in Houdini Solaris for 30+ lighting artists.
+
+- id: wdas-trainee
+  org: Walt Disney Animation Studios
+  role: Technical Director Trainee
+  dates: Jan. 2025 – Apr. 2025
+  location: Burbank, CA
+  image: /assets/images/moana.jpg
+  excerpt: >-
+    Trained across the <b>18+</b> departments behind a Disney animated feature as part of the
+    2025 Trainee &amp; Apprentice class.
+  details: |
+    Trained in every stage of making a 3D animated feature, from modeling, visual development,
+    and layout through animation, lighting, rendering, and stereo. Produced an individual and a
+    team project with *Zootopia 2* assets, presented to the Technical Direction department.
+  links:
+    - label: Trainee program
+      url: https://disneyanimation.com/talent-development/apprenticeships/
+  projects:
+    - title: VarGrid
+      video: /assets/videos/vargrid.mp4
+      poster: /assets/videos/vargrid-poster.webp
+      text: >-
+        Team project: a USD asset-variant browser, co-developed from design to release. Load
+        times cut by 16% with cProfile.
+    - title: LookAround
+      video: /assets/videos/lookaround.mp4
+      poster: /assets/videos/lookaround-poster.webp
+      text: Individual project. Renders turntables of an asset in every one of the film's sets, for the look department.
+
+- id: sjsu
+  org: San José State University
+  role: B.S. Software Engineering, Cum Laude
+  dates: Jul. 2020 – Jun. 2024
+  location: San José, CA
+  image: /assets/images/ResearchFoundation.jpg
+  excerpt: >-
+    Research lead for a VR lab used by <b>200+ students</b> per semester, two student clubs, a
+    shipped Steam game, and my first renderers and engines.
+  details: |
+    - **Research Foundation, Research Lead** (Feb. 2022 – May 2024): developed and tested a VR
+      framework for STEM education, now used by **200+ students** per semester, with an
+      **82.3% increase** in learning and retention. First author of the resulting preprint.
+    - **Playroom, Game Developer Intern** (Jun. – Aug. 2023): designed, directed, built, and
+      shipped a 3D multiplayer web game in 2 months; **5000+ players** since launch.
+    - **Taka Taka, Producer & Technical Lead** (Jan. 2022 – Feb. 2024): led an 8-person Unity
+      team to a Steam release.
+    - **ACM SIGGRAPH Student Chapter, President & Re-Founder** (Aug. 2023 – May 2024): grew
+      membership from 0 to **250+**, secured **$1500** in GDC sponsorships, and brought in
+      speakers from Pixar and Riot Games.
+    - **Game Development Club, President** (Jul. 2022 – Aug. 2023): ran management, recruiting,
+      outreach, workshops, and events.
+  projects:
+    - title: Penumbra
+      image: /assets/images/penumbra.webp
+      text: >-
+        Progressive, physically based CPU path tracer in C++: MIS, next-event estimation, the
+        Disney principled BSDF, HDRI lighting, and SIMD BVH traversal.
+      links:
+        - label: GitHub
+          url: https://github.com/Rafapp/Penumbra
+    - title: Jelly Engine
+      image: /assets/images/JellyEngineNew.mp4
+      text: >-
+        Graduation-thesis game engine with real-time soft-body physics: 120+ FPS on
+        1000-triangle meshes, and a GLSL subsurface-scattering shader.
+      links:
+        - label: GitHub
+          url: https://github.com/Rafapp/jellyengine
+    - title: Taka Taka
+      image: /assets/images/TakaTaka.png
+      text: >-
+        Steam rhythm game: 1,500+ wishlists and 300+ sales. Built TakaMaker, cutting chart
+        authoring time by 60%.
+      links:
+        - label: Steam
+          url: https://store.steampowered.com/app/2336840/Taka_Taka/
+    - title: VR materials lab
+      image: /assets/images/VRLab.mp4
+      text: VR framework for embodied learning in materials engineering.
+      links:
+        - label: GitHub
+          url: https://github.com/Rafapp/SJSU-MaterialsEngineering-VR-lab
+    - title: Rollout (Playroom)
+      image: /assets/images/rollout_thumbnail.png
+      text: 3D multiplayer web game, shipped in 2 months.
+      links:
+        - label: Play
+          url: https://rollout.joinplayroom.com/
+    - title: Prim
+      image: /assets/images/PrimDemo.mp4
+      text: Maya plug-in (PySide6) to save, curate, and instance mesh primitives with a custom .prim format.
+      links:
+        - label: GitHub
+          url: https://github.com/Rafapp/Prim

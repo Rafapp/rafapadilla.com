@@ -1,5 +1,6 @@
-Portfolio website - made using Jekyll
+# Rafael Padilla
 
-To visit: https://rafapadilla.com
+Portfolio website of Rafael Padilla, graphics and software engineer. Built with Jekyll and the
+Minimal Mistakes theme.
 
-<img width="auto" alt="image" src="https://github.com/user-attachments/assets/03fa0106-2ec3-4d5d-bd63-376960eb0a3d">
+Visit: https://rafapadilla.com

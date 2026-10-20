@@ -1,0 +1,32 @@
+{% comment %}
+  Local override of the theme's schema.html (home page only): a Person with
+  profiles and affiliations, plus a WebSite so search results show the site name.
+{% endcomment %}
+<script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": {{ '/#person' | absolute_url | jsonify }},
+    "name": {{ site.social.name | jsonify }},
+    "alternateName": {{ site.social.alternate_names | jsonify }},
+    "url": {{ '/' | absolute_url | jsonify }},
+    "image": {{ site.og_image | absolute_url | jsonify }},
+    "jobTitle": {{ site.subtitle | jsonify }},
+    "description": {{ site.description | jsonify }},
+    "alumniOf": [
+      { "@type": "CollegeOrUniversity", "name": "University of Utah" },
+      { "@type": "CollegeOrUniversity", "name": "San José State University" }
+    ],
+    "knowsAbout": ["Computer graphics", "Rendering", "Path tracing", "GPU programming", "Vulkan", "USD", "Production pipeline tools"],
+    "sameAs": {{ site.social.links | jsonify }}
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": {{ site.title | jsonify }},
+    "url": {{ '/' | absolute_url | jsonify }},
+    "author": { "@id": {{ '/#person' | absolute_url | jsonify }} }
+  }
+]
+</script>

@@ -1,0 +1,31 @@
+---
+layout: archive
+---
+{% comment %}
+  Local override of the theme's home layout (4.26.1): the post list sits in its own
+  glass card with an "All posts" link, since the home page has no single panel.
+{% endcomment %}
+
+{{ content }}
+
+<section class="home-posts">
+  <div class="home-posts__head">
+    <h2 class="archive__subtitle">{{ site.data.ui-text[site.locale].recent_posts | default: "Recent Posts" }}</h2>
+    <a class="home-posts__all" href="{{ '/blog/' | relative_url }}">All posts →</a>
+  </div>
+
+  {% if paginator %}
+    {% assign posts = paginator.posts %}
+  {% else %}
+    {% assign posts = site.posts %}
+  {% endif %}
+
+  {% assign entries_layout = page.entries_layout | default: 'list' %}
+  <div class="entries-{{ entries_layout }}">
+    {% for post in posts %}
+      {% include archive-single.html type=entries_layout %}
+    {% endfor %}
+  </div>
+
+  {% include paginator.html %}
+</section>

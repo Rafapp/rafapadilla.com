@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-label="Juggling placeholder">
+  <rect width="800" height="600" fill="#141010"/>
+  <path d="M220 470 C260 120, 540 120, 580 470" fill="none" stroke="#f3efe9" stroke-opacity="0.18" stroke-width="4" stroke-dasharray="10 14"/>
+  <path d="M300 470 C330 220, 470 220, 500 470" fill="none" stroke="#f3efe9" stroke-opacity="0.12" stroke-width="4" stroke-dasharray="10 14"/>
+  <circle cx="290" cy="250" r="34" fill="#cf483f"/>
+  <circle cx="400" cy="160" r="34" fill="#ffdb85"/>
+  <circle cx="525" cy="290" r="34" fill="#69b255"/>
+</svg>

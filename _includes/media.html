@@ -1,0 +1,4 @@
+{% comment %}
+  An image, or a muted looping video for .mp4/.webm. Lazy-loaded.
+  Params: src, alt, class
+{% endcomment %}{% assign ext = include.src | split: '.' | last | downcase %}{% if ext == 'mp4' or ext == 'webm' %}<video class="{{ include.class }}" src="{{ include.src | relative_url }}" autoplay muted loop playsinline preload="none" aria-label="{{ include.alt | escape }}"></video>{% else %}<img class="{{ include.class }}" src="{{ include.src | relative_url }}" alt="{{ include.alt | escape }}" loading="lazy" decoding="async">{% endif %}

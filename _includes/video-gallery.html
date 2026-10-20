@@ -1,0 +1,16 @@
+{% comment %}
+  Grid of short self-hosted video loops from the page's `videos:` frontmatter:
+  [{src, title, caption}]. Shows a note while the list is empty.
+{% endcomment %}
+{% if page.videos and page.videos.size > 0 %}
+<div class="video-gallery">
+  {% for v in page.videos %}
+  <figure class="video-gallery__item">
+    {% include media.html src=v.src alt=v.title class="video-gallery__media" %}
+    <figcaption><strong>{{ v.title }}</strong>{% if v.caption %} · {{ v.caption }}{% endif %}</figcaption>
+  </figure>
+  {% endfor %}
+</div>
+{% else %}
+<p class="video-gallery__empty">Videos coming soon.</p>
+{% endif %}

@@ -1,4 +1,5 @@
 ---
+description: "Photography by Rafael Padilla."
 title: Photo Gallery
 permalink: /passions/photo_gallery/
 
@@ -85,5 +86,5 @@ gallery:
 
 ---
 
-{% include gallery class="full" %}
+{% include gallery %}
 {% include new-window-fix.html %}

@@ -1,4 +1,5 @@
 ---
+description: "Watercolor and gouache paintings by Rafael Padilla."
 title: Watercolor Gallery 
 permalink: /passions/watercolor_gallery/
 
@@ -15,5 +16,5 @@ gallery:
 
 ---
 
-{% include gallery class="full" %}
+{% include gallery %}
 {% include new-window-fix.html %}

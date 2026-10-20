@@ -1,0 +1,65 @@
+---
+layout: home
+title: Rafael Padilla
+description: "Rafael Padilla, graphics and software engineer: rendering research, GPU path tracing, and production tools at DreamWorks Animation and Walt Disney Animation Studios."
+author_profile: false
+---
+
+<section class="home-terminal">
+  <div class="terminal">
+    <div class="terminal__bar"><button type="button" class="terminal__btn" data-theme="red" aria-label="Red terminal theme"><svg viewBox="0 0 10 10" aria-hidden="true"><path d="M3 3l4 4M7 3l-4 4"/></svg></button><button type="button" class="terminal__btn" data-theme="amber" aria-label="Amber terminal theme"><svg viewBox="0 0 10 10" aria-hidden="true"><path d="M2.5 5h5"/></svg></button><button type="button" class="terminal__btn" data-theme="green" aria-label="Green terminal theme"><svg viewBox="0 0 10 10" aria-hidden="true"><path d="M3 7l4-4M4.2 3H7v2.8M5.8 7H3V4.2"/></svg></button></div>
+    <p class="terminal__line">
+      <span class="terminal__prompt">RafaelPadilla:~$</span>
+      <span class="terminal__typed" aria-hidden="true" data-roles='["Graphics Engineer", "Software Engineer", "Creative Technologist", "Technical Director"]'>Graphics Engineer</span><span class="terminal__cursor" aria-hidden="true"></span>
+      <span class="visually-hidden">Graphics Engineer, Software Engineer, Creative Technologist, Technical Director</span>
+    </p>
+  </div>
+</section>
+
+<section class="home-bio">
+  <div class="home-bio__frame"><img class="home-bio__photo" src="/assets/images/headshot.jpeg" alt="Rafael Padilla" decoding="async"></div>
+  <div>
+    <h2>About me</h2>
+    <p>I'm a graphics and software engineer working on rendering and the tools around it. I'm pursuing an M.S. in Computing (Graphics &amp; Visualization) at the University of Utah, where I research progressive and GPU path tracing, and I've built production tools at DreamWorks Animation and Walt Disney Animation Studios.</p>
+    <h3>Interests</h3>
+    <ul class="chips">
+      <li>Path tracing</li><li>Real-time rendering</li><li>GPU programming</li><li>USD pipelines</li>
+      <li>Photography</li><li>Watercolor &amp; gouache</li><li>Piano &amp; keytar</li><li>Ukulele</li><li>Juggling</li><li>Swimming</li>
+    </ul>
+  </div>
+</section>
+
+<script>
+  // Terminal buttons: each one switches the terminal's color theme; clicking it again resets
+  document.querySelectorAll('.terminal__btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var term = btn.closest('.terminal');
+      var theme = btn.getAttribute('data-theme');
+      term.setAttribute('data-theme', term.getAttribute('data-theme') === theme ? '' : theme);
+    });
+  });
+
+  // Terminal: type a role, hold, delete it char by char, move to the next one
+  (function () {
+    var el = document.querySelector('.terminal__typed');
+    if (!el || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var roles = JSON.parse(el.getAttribute('data-roles'));
+    var i = 0, text = roles[0], deleting = true;
+    function tick() {
+      var role = roles[i];
+      if (deleting) {
+        text = text.slice(0, -1);
+        el.textContent = text;
+        if (!text) { deleting = false; i = (i + 1) % roles.length; return setTimeout(tick, 400); }
+        return setTimeout(tick, 40);
+      }
+      text = role.slice(0, text.length + 1);
+      el.textContent = text;
+      if (text === role) { deleting = true; return setTimeout(tick, 1800); }
+      setTimeout(tick, 75);
+    }
+    setTimeout(tick, 1800);
+  })();
+</script>
+
+{% include new-window-fix.html %}

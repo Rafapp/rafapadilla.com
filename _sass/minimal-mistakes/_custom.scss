@@ -1,0 +1,602 @@
+/* ==========================================================================
+   Site components (not part of the theme)
+   Imported last from _sass/minimal-mistakes.scss, so these rules win over the
+   theme partials without extra specificity.
+   ========================================================================== */
+
+:root {
+  // Height of the sticky glass nav bar, for things that stick below it
+  --nav-offset: 6rem;
+}
+
+// Quiet glass pill used for buttons and links on cards
+@mixin pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  padding: 0.3em 0.85em;
+  border: 1px solid rgba(#fff, 0.14);
+  border-radius: 999px;
+  background: rgba(#fff, 0.06);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  color: $text-color;
+  font-size: $type-size-6;
+  font-weight: normal;
+  text-decoration: none;
+  box-shadow: none;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+
+  &:hover {
+    background: rgba(#fff, 0.12);
+    border-color: rgba(#fff, 0.28);
+    color: $text-color;
+  }
+}
+
+/* Heading permalinks: the theme hides them until hover; keep them faintly visible
+   ========================================================================== */
+
+.page__content .header-link {
+  opacity: 0.35;
+}
+
+.page__content :is(h1, h2, h3, h4, h5, h6):hover .header-link {
+  opacity: 1;
+}
+
+/* Sticky glass nav bar
+   ========================================================================== */
+
+.masthead {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+/* Full-width pages: author sidebar is off site-wide, so drop its reserved column
+   ========================================================================== */
+
+.wide .sidebar {
+  display: none;
+}
+
+.wide .page {
+  float: none;
+  width: 100%;
+}
+
+/* Home: terminal, bio and posts as separate glass cards over the backdrop
+   ========================================================================== */
+
+// No single panel on home: the terminal floats over the render
+.layout--home #main {
+  background: none;
+  border: 0;
+  box-shadow: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  padding-top: 0;
+}
+
+// Kept for SEO and screen readers; the terminal is the visible title
+.layout--home #page-title {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+}
+
+.home-terminal {
+  display: flex;
+  justify-content: center;
+  padding: 5vh 0 7vh;
+}
+
+// Colors come from custom properties so the title-bar buttons can swap themes
+.terminal {
+  @include glass;
+  --term-prompt: #{$primary-color};
+  --term-text: #{$text-color};
+  --term-tint: transparent;
+  --term-glow: transparent;
+  width: min(100%, 42ch);
+  background-image: linear-gradient(var(--term-tint), var(--term-tint));
+  font-family: $monospace;
+  font-size: clamp(1rem, 3vw, 1.9rem);
+  transition: background-image 0.3s ease;
+
+  &[data-theme="red"] {
+    --term-prompt: #ff8a7e;
+    --term-text: #ffe1dc;
+    --term-tint: #{rgba($cornell-red, 0.28)};
+    --term-glow: #{rgba($cornell-red, 0.6)};
+  }
+
+  &[data-theme="amber"] {
+    --term-prompt: #{$cornell-light};
+    --term-text: #ffb000;
+    --term-tint: #{rgba(#ffb000, 0.12)};
+    --term-glow: #{rgba(#ffb000, 0.55)};
+  }
+
+  &[data-theme="green"] {
+    --term-prompt: #a8ff60;
+    --term-text: #39ff7a;
+    --term-tint: #{rgba(#00ff50, 0.1)};
+    --term-glow: #{rgba(#39ff7a, 0.55)};
+  }
+}
+
+.terminal__bar {
+  display: flex;
+  gap: 0.45em;
+  padding: 0.7em 0.9em 0;
+}
+
+// macOS-style buttons: icons show while the bar is hovered or a button has focus
+.terminal__btn {
+  display: grid;
+  place-items: center;
+  width: 0.62em;
+  height: 0.62em;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: $cornell-red;
+  cursor: pointer;
+
+  &:nth-child(2) { background: $cornell-light; }
+  &:nth-child(3) { background: $cornell-green; }
+
+  svg {
+    width: 70%;
+    height: 70%;
+    fill: none;
+    stroke: rgba(#000, 0.6);
+    stroke-width: 1.4;
+    stroke-linecap: round;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $text-color;
+    outline-offset: 2px;
+  }
+}
+
+.terminal__bar:hover .terminal__btn svg,
+.terminal__btn:focus-visible svg {
+  opacity: 1;
+}
+
+.terminal .terminal__line {
+  margin: 0;
+  padding: 0.6em 0.9em 0.8em;
+  font-size: 1em;
+  line-height: 1.4;
+}
+
+.terminal__prompt {
+  color: var(--term-prompt);
+  margin-right: 0.5ch;
+}
+
+.terminal__line {
+  color: var(--term-text);
+  text-shadow: 0 0 0.6em var(--term-glow);
+}
+
+.terminal__cursor {
+  display: inline-block;
+  width: 0.55ch;
+  height: 1.15em;
+  margin-left: 0.1ch;
+  vertical-align: text-bottom;
+  background: var(--term-text);
+  animation: terminal-blink 1.06s steps(1) infinite;
+}
+
+@keyframes terminal-blink {
+  50% { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .terminal__cursor { animation: none; }
+}
+
+
+// The home layout is the theme's archive, which leaves room for a sidebar
+.layout--home .archive {
+  float: none;
+  width: 100%;
+  padding-right: 0;
+}
+
+
+.home-bio {
+  @include glass;
+  display: grid;
+  gap: 1.5em;
+  align-items: center; // no dead space under the photo when the text column is short
+  padding: 1.5em;
+
+  @include breakpoint($medium) {
+    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  }
+
+  h2 {
+    margin-top: 0;
+  }
+}
+
+// Photo in a liquid-glass frame, matching the panels (glass mixin is in the neon skin)
+.home-bio__frame {
+  @include glass;
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 10px;
+  border-radius: 28px;
+  background-color: rgba(#fff, 0.06);
+}
+
+.home-bio__photo {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  object-position: center 35%;
+  border-radius: 19px;
+}
+
+.chips {
+  margin: 0.5em 0 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    display: inline-block;
+    margin: 0 0.4em 0.5em 0;
+    padding: 0.2em 0.75em;
+    border: 1px solid rgba(#fff, 0.15);
+    border-radius: 999px;
+    font-size: $type-size-6;
+  }
+}
+
+.home-posts {
+  @include glass;
+  margin-top: 1.5em;
+  padding: 1.5em;
+
+  .archive__subtitle {
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  .archive__item-title {
+    margin-top: 1em;
+  }
+}
+
+.home-posts__head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.5em;
+  padding-bottom: 0.5em;
+  border-bottom: 1px solid rgba(#fff, 0.1);
+}
+
+.home-posts__all {
+  @include pill;
+}
+
+/* Experience: expandable cards
+   ========================================================================== */
+
+.xp-list {
+  display: grid;
+  gap: 1.25em;
+  margin: 1em 0 2em;
+}
+
+.xp {
+  border: 1px solid rgba(#fff, 0.08);
+  border-radius: 16px;
+  background: rgba(#fff, 0.03);
+  scroll-margin-top: calc(var(--nav-offset) + 1em);
+
+  &[open] {
+    background: rgba(#fff, 0.05);
+  }
+}
+
+.xp__card {
+  display: grid;
+  gap: 1.25em;
+  padding: 1em;
+  list-style: none;
+  cursor: pointer;
+
+  &::-webkit-details-marker {
+    display: none;
+  }
+
+  @include breakpoint($medium) {
+    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+    align-items: start;
+  }
+
+  &--text {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+.xp__media,
+.xp-project__media {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+// Scoped under .xp-list to outrank the theme's `.page__content p` / `h2` rules
+.xp-list {
+  .xp__org {
+    margin: 0 0 0.15em;
+    padding: 0;
+    border: 0;
+    font-size: $type-size-4;
+  }
+
+  .xp__role {
+    margin: 0;
+    font-weight: bold;
+  }
+
+  .xp__meta {
+    margin: 0.2em 0 0.6em;
+    color: $muted-text-color;
+    font-size: $type-size-6;
+  }
+
+  .xp__excerpt {
+    margin: 0 0 0.9em;
+    font-size: $type-size-5;
+  }
+}
+
+// Card actions: quiet glass pills instead of theme buttons
+.xp__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em;
+}
+
+.xp-list .xp__pill {
+  @include pill;
+}
+
+.xp__card:hover .xp__toggle {
+  background: rgba(#fff, 0.12);
+  border-color: rgba(#fff, 0.28);
+}
+
+.xp__chevron {
+  width: 0.8em;
+  height: 0.8em;
+  transition: transform 0.2s ease;
+
+  .xp[open] & {
+    transform: rotate(180deg);
+  }
+}
+
+.xp__toggle-close,
+.xp[open] .xp__toggle-open {
+  display: none;
+}
+
+.xp[open] .xp__toggle-close {
+  display: inline;
+}
+
+.xp__body {
+  padding: 0 1em 1.25em;
+  border-top: 1px solid rgba(#fff, 0.08);
+}
+
+// Zero-height sticky bar: the Close button follows you down the open section
+.xp__close-bar {
+  position: sticky;
+  top: calc(var(--nav-offset) + 0.75em);
+  z-index: 5;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start; // otherwise the button stretches to the bar's 0 height
+  height: 0;
+}
+
+.xp__close {
+  margin-top: 0.75em;
+  padding: 0.35em 0.9em;
+  border: 1px solid rgba(#fff, 0.18);
+  border-radius: 999px;
+  background: rgba($background-color, 0.7);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  color: $text-color;
+  font-size: $type-size-6;
+  cursor: pointer;
+
+  &:hover {
+    border-color: $primary-color;
+  }
+}
+
+.xp__details {
+  padding-top: 0.75em;
+  padding-right: 6em; // room for the Close button
+  font-size: $type-size-5;
+
+  h4 {
+    margin: 1em 0 0.3em;
+  }
+}
+
+.xp__projects-title {
+  margin: 1.25em 0 0.75em;
+  font-size: $type-size-5;
+}
+
+.xp__projects {
+  display: grid;
+  gap: 1em;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+}
+
+.xp-project {
+  padding: 0.75em;
+  border-radius: 12px;
+  background: rgba(#000, 0.2);
+  font-size: $type-size-6;
+}
+
+.xp-project__media {
+  margin-bottom: 0.6em;
+}
+
+// Demo videos get two columns so UI recordings stay readable
+.xp-project--video {
+  @include breakpoint($medium) {
+    grid-column: span 2;
+  }
+}
+
+.xp-project__title {
+  margin: 0 0 0.3em;
+  font-size: $type-size-5;
+}
+
+.xp-project__text {
+  margin: 0 0 0.5em;
+}
+
+.xp-project__link {
+  margin-right: 0.8em;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+/* Research: publication list
+   ========================================================================== */
+
+.pubs {
+  margin: 0 0 2em;
+  padding: 0;
+  list-style: none;
+
+  li {
+    margin-bottom: 1.25em;
+  }
+}
+
+.pubs__title {
+  display: block;
+  font-weight: bold;
+}
+
+.pubs__venue {
+  display: block;
+  color: $muted-text-color;
+  font-size: $type-size-6;
+}
+
+/* Passions: compact card grid, all sections visible on one screen
+   ========================================================================== */
+
+.passions__blurb {
+  margin-top: 0;
+  font-size: $type-size-4;
+  color: $muted-text-color;
+}
+
+.passions .feature__wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 1.25em;
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: 0;
+
+  &::after {
+    display: none; // the theme's clearfix would become an empty grid cell
+  }
+}
+
+.passions .feature__item {
+  float: none;
+  width: auto;
+  margin: 0;
+  padding: 0.75em;
+  border: 1px solid rgba(#fff, 0.08);
+  border-radius: 16px;
+  background: rgba(#fff, 0.04);
+
+  .archive__item-teaser img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+
+  .archive__item-title {
+    margin-top: 0.6em;
+    font-size: $type-size-5;
+  }
+
+  .archive__item-excerpt p {
+    font-size: $type-size-6;
+  }
+
+  .btn {
+    @include pill;
+  }
+}
+
+/* Video gallery (juggling)
+   ========================================================================== */
+
+.video-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1em;
+}
+
+.video-gallery__item {
+  margin: 0;
+
+  figcaption {
+    margin-top: 0.4em;
+    font-size: $type-size-6;
+  }
+}
+
+.video-gallery__media {
+  display: block;
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  object-fit: cover;
+  border-radius: 12px;
+  background: rgba(#000, 0.3);
+}
+
+.video-gallery__empty {
+  color: $muted-text-color;
+}

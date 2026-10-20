@@ -1,0 +1,50 @@
+{% comment %}
+  Renders _data/experience.yml as expandable cards. Uses <details>, so expanding
+  works without JavaScript; the script only powers the sticky Close button.
+{% endcomment %}
+<div class="xp-list">
+{% for item in site.data.experience %}
+  <details class="xp" id="{{ item.id }}">
+    <summary class="xp__card{% unless item.image %} xp__card--text{% endunless %}">
+      {% if item.image %}{% include media.html src=item.image alt=item.org class="xp__media" %}{% endif %}
+      <div class="xp__head">
+        <h2 class="xp__org">{{ item.org }}</h2>
+        <p class="xp__role">{{ item.role }}</p>
+        <p class="xp__meta">{{ item.dates }} · {{ item.location }}</p>
+        <p class="xp__excerpt">{{ item.excerpt }}</p>
+        <div class="xp__actions">
+          <span class="xp__pill xp__toggle"><span class="xp__toggle-open">More</span><span class="xp__toggle-close">Less</span><svg class="xp__chevron" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          {% for link in item.links %}<a class="xp__pill" href="{{ link.url }}">{{ link.label }}</a>{% endfor %}
+        </div>
+      </div>
+    </summary>
+    <div class="xp__body">
+      <div class="xp__close-bar"><button type="button" class="xp__close" aria-label="Close {{ item.org }} details">✕ Close</button></div>
+      <div class="xp__details">{{ item.details | markdownify }}</div>
+      {% if item.projects %}
+      <h3 class="xp__projects-title">Highlighted projects</h3>
+      <div class="xp__projects">
+        {% for p in item.projects %}
+        <article class="xp-project{% if p.video %} xp-project--video{% endif %}">
+          {% if p.video %}<video class="xp-project__media" src="{{ p.video | relative_url }}" poster="{{ p.poster | relative_url }}" controls playsinline preload="none" aria-label="{{ p.title | escape }} demo"></video>{% elsif p.image %}{% include media.html src=p.image alt=p.title class="xp-project__media" %}{% endif %}
+          <h4 class="xp-project__title">{{ p.title }}</h4>
+          <p class="xp-project__text">{{ p.text }}</p>
+          {% for link in p.links %}<a class="xp-project__link" href="{{ link.url }}">{{ link.label }} →</a>{% endfor %}
+        </article>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+  </details>
+{% endfor %}
+</div>
+
+<script>
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('.xp__close');
+    if (!btn) return;
+    var item = btn.closest('details');
+    item.open = false;
+    item.scrollIntoView({ block: 'start' });
+  });
+</script>
